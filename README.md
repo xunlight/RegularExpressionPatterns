@@ -3,7 +3,6 @@ TestRepositoryMaster
 
 testing sync
 
-I am changing that.
+I am changing that
 
-
-Second change
+reset readme
