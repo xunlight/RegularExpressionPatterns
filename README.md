@@ -1,8 +1,5 @@
-TestRepositoryMaster
+Regular Expression Patterns
 ====================
 
-testing sync
+Database of regular expression patterns.
 
-I am changing that
-
-reset readme
