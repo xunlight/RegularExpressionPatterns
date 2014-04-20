@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Test page</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/patterns.js"></script>
+    <script>
+      $( function(){
+      
+		//create select of patterns
+      	var selectContainer = $('#select');
+      	
+		var sel = $('<select id="patterns">').appendTo(selectContainer);
+		//add options
+		$.each(patterns, function(key, value) {
+			sel.append($("<option>").attr('value',key)
+									.attr('title',value.errorMsg)
+									.text(key));
+		});
+		
+		//display result of check 
+		var checkPattern = function(){
+      		//get pattern
+      		var pattern = patterns[$('#patterns').val()].pattern;
+      		//test
+      		var valueCorrect = pattern.test($('#input').val());
+	
+      		//show result
+      		if(valueCorrect)
+      			$('#status').css('color','green')
+      						.html('Value is correct!');
+      		else
+      			$('#status').css('color','red')
+      						.html( $('#patterns').find(':selected').attr('title') );
+		}
+		
+      	//check button handler
+      	$('#button').on('click', function(){
+   			checkPattern();
+      	});
+      	
+      	//button switch handler for keyup button
+      	$('#switch_keyup_button').on('click', function(){
+      		//start continued 
+   			if($(this).html()=='Check on KeyUp'){
+   				//set button text
+   				$(this).html('Stop Check on KeyUp');
+   				//input key up handler
+   				$('#input').on('keyup', function(){checkPattern();});
+   			}else{
+   				//set button text
+   				$(this).html('Check on KeyUp');
+   				//input key up handler
+   				$('#input').off('keyup');
+   			}
+      	});
+      } );
+    </script>
+  </head>
+  <body>
+    <!-- test form -->
+    <form>
+    	<input type="text" id="input"/>
+    	<br/>
+    	<b>Regular expression pattern: </b>
+    	<br/>
+    	<span id="select"> </span>
+    	<br/>
+    	<b>Status: </b><span id="status">Insert text into input, select expression and click check.</span>
+    	<br/>
+    	<button type="button" id="button">Check</button>
+    	<br/>
+    	<button type="button" id="switch_keyup_button">Check on KeyUp</button>
+    </form>
+  </body>
+</html>
